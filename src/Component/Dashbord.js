@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import {  Table } from 'antd';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import moment from "moment"
 
 
 
@@ -16,20 +17,22 @@ function Dashbord({ match }) {
   const { alldata } = useContext(ContextProvider)
   const [users, setUsers] = useState([])
   const [logindata,setlogindata ] = useState([])
+  const [state,setState] = useState(false)
+
+ 
   
 console.log(logindata.date,"hello")
     
   const [show, setShow] = useState(false);
  
-  const handleClose = () =>  setShow(false);
+  const handleClose = () => {
+    localStorage.clear("data")
+    setShow(false);
+  } 
   const handleShow = () => setShow(true);
 
-  var today = new Date(logindata.date);
-  console.log(today.getUTCHours()); // Hours
-  console.log(today.getUTCMinutes());
-  console.log(today.getUTCSeconds());
-
-// today = dd + '/' + mm  + '/' + yyyy;
+  var today =moment().format('LL');
+  
   console.log(today.toString(),"today date")
   
   const Birthday = () => {
@@ -112,16 +115,19 @@ console.log(logindata.date,"hello")
     setUsers(alldata)
   }, [alldata])
 
-
+  const close = () => {
+    setState(true)
+  }
   return (
     <>
     {
-      logindata.length === 0 ? "error" : 
+      logindata.length === 0 ? "" : 
       <>
      {
-      logindata.date == today ?
-      <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
+      
+      logindata.date == today && state == false ?
+      <Modal show={show}>
+      <Modal.Header closeButton onClick={close}>
         <Modal.Title>{logindata.name}</Modal.Title>
       </Modal.Header>
       <Modal.Body>Wish you many many happy return of the day</Modal.Body>

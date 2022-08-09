@@ -2,6 +2,7 @@ import React,{useContext, useState} from 'react'
 import { Button, Checkbox, Form, Input,DatePicker} from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { ContextProvider } from './Context';
+import moment from "moment"
 
 
 
@@ -17,7 +18,7 @@ function SingUp() {
     const handelClick = (e) => {
         e.preventDefault();
         let data = {name,email,password,date}
-        const convertedDate = new Date(date)
+        const convertedDate = moment(date).format('LL')
         console.log(convertedDate.toString())
         var obj = {
           "name":name,
