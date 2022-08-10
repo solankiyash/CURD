@@ -18,16 +18,20 @@ function Dashbord({ match }) {
   const [users, setUsers] = useState([])
   const [logindata,setlogindata ] = useState([])
   const [state,setState] = useState(false)
+  const [show, setShow] = useState(false);
+
+  const [newData,setNewData] = useState(localStorage.setItem("user",JSON.stringify(logindata)))
+  
+  
 
  
   
-console.log(logindata.date,"hello")
-    
-  const [show, setShow] = useState(false);
- 
   const handleClose = () => {
-    localStorage.clear("data")
     setShow(false);
+   const a = localStorage.removeItem("data")  
+    setNewData(a)
+    
+   
   } 
   const handleShow = () => setShow(true);
 
@@ -99,7 +103,6 @@ console.log(logindata.date,"hello")
 
 
   const logout = () => {
-    localStorage.clear("data")
     navigate("/")
   }
   const AddNew = () => {
@@ -125,7 +128,7 @@ console.log(logindata.date,"hello")
       <>
      {
       
-      logindata.date == today && state == false ?
+      logindata.date == today && state == false && newData !== ""  ?
       <Modal show={show}>
       <Modal.Header closeButton onClick={close}>
         <Modal.Title>{logindata.name}</Modal.Title>
@@ -139,7 +142,7 @@ console.log(logindata.date,"hello")
           Save Changes
         </Button> */}
       </Modal.Footer>
-    </Modal> :""
+    </Modal> : ""
      }
     </>
           

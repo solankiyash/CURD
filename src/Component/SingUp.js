@@ -11,7 +11,7 @@ function SingUp() {
    
     const[name,setName] = useState("")
     const[email,setEmail] = useState("")
-    const[password,setPassword] = useState("  ")
+    const[password,setPassword] = useState("")
     const {date,setDate} = useContext(ContextProvider)
     
     
@@ -27,20 +27,16 @@ function SingUp() {
           "date":convertedDate.toString()
         }
         let a = JSON.stringify(data)
-        // var val = localStorage.setItem({a},JSON.stringify(obj))
         
-       
          localStorage.setItem(obj.email,JSON.stringify(obj))
-        //  localStorage.setItem("email",JSON.stringify(data.email))
-        //  localStorage.setItem("password",JSON.stringify(data.password))
-        //  localStorage.setItem("date",JSON.stringify(data.date))
-       if(name===""){
+        
+       if(data.name.length == 0){
         alert("name filed is requred")
-       }else if(email===""){
+       }else if(email === ""){
           alert("email is requred")
-       }else if(date===""){
+       }else if(date === ""){
         alert("date filed is requred")
-       }else if(password ===""){
+       }else if(password === ""){
         alert("password filed is requred ")
        }else if(password.length < 6){
         alert("password length greater six ")
