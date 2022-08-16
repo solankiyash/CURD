@@ -1,5 +1,5 @@
 import React,{useContext, useState} from 'react'
-import { Button, Checkbox, Form, Input,DatePicker} from 'antd';
+import { Button,Form, Input} from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { ContextProvider } from './Context';
 import moment from "moment"
@@ -13,24 +13,27 @@ function SingUp() {
     const[email,setEmail] = useState("")
     const[password,setPassword] = useState("")
     const {date,setDate} = useContext(ContextProvider)
-    
+
+    const onFinish = (values) => {
+      console.log('Success:', values);
+    };
+  
+    const onFinishFailed = (errorInfo) => {
+      console.log('Failed:', errorInfo);
+    };
+
     
     const handelClick = (e) => {
         e.preventDefault();
-        let data = {name,email,password,date}
         const convertedDate = moment(date).format('LL')
-        console.log(convertedDate.toString())
         var obj = {
           "name":name,
           "email":email,
           "password":password,
           "date":convertedDate.toString()
         }
-        let a = JSON.stringify(data)
         
-         localStorage.setItem(obj.email,JSON.stringify(obj))
-        
-       if(data.name.length == 0){
+       if(name.length == 0){
         alert("name filed is requred")
        }else if(email === ""){
           alert("email is requred")
@@ -43,19 +46,10 @@ function SingUp() {
        }else{
           navigate("/login")
        }
-       
+       localStorage.setItem(obj.email,JSON.stringify(obj))
     }
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
-      };
-    
-      const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-      };
-
    
- 
   return (
     <div>
       <div className='constructor'>
@@ -111,21 +105,18 @@ function SingUp() {
         rules={[
           {
             required: true,
-            pattern:"",
             message: 'Please input your password!',
           },
         ]}
       >
         <Input.Password placeholder='Enter Password' value={password} onChange={(e)=>setPassword(e.target.value)} />
         </Form.Item>
-        
         <Form.Item
         label="Birthday date:"
         name="date"
         rules={[
           {
             required: true,
-            pattern:"",
             message: 'Please input your password!',
           },
         ]}
@@ -141,9 +132,7 @@ function SingUp() {
           span: 16,
         }}
       >
-        
       </Form.Item>
-
       <Form.Item
         wrapperCol={{
           offset: 8,
@@ -162,6 +151,7 @@ function SingUp() {
       <img src="./image/Singup.webp"/>
       </div>
       </div>
+
     </div>
     </div>
     </div>

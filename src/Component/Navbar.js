@@ -1,13 +1,7 @@
 import React, { useContext } from 'react'
-import { ContextProvider } from './Context'
-import {Link} from "react-router-dom"
 function Navbar() {
-  const {singup,openmodel} = useContext(ContextProvider)
-  console.log("mymodel",singup)
-
-  const openform = () => {
-    openmodel()
-  }
+  
+  
   return (
     <div>
       <div className='Navbar'>
@@ -24,14 +18,6 @@ function Navbar() {
         </li>
         <li className="nav-item">
         </li>
-      </ul>
-      <ul className="navbar-nav"onClick={openform}>
-      {/* <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to={"/login"}>Login</Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to={"/"}>Singup</Link>
-        </li> */}
       </ul>
     </div>
   </div>

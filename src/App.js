@@ -4,7 +4,6 @@ import Navbar from './Component/Navbar';
 import SingUp from './Component/SingUp';
 import Login from './Component/Login';
 import Context from './Component/Context';
-import { ContextProvider } from './Component/Context';
 import {Routes,Route} from "react-router-dom"
 import Dashbord from './Component/Dashbord';
 import AddnewData from './Component/AddnewData';
@@ -12,9 +11,6 @@ import Edite from './Component/Edite';
 
 
 function App() {
-
-  
- 
   return (
     <div className="App">
     <Context>

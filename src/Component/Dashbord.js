@@ -1,19 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ContextProvider } from './Context'
-import Axios from "axios"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import {  Table } from 'antd';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import moment from "moment"
 
 
-
-
-function Dashbord({ match }) {
-  const { email, setEmail } = useContext(ContextProvider)
-  const [result, setResult] = useState()
-  const { date, setDate } = useContext(ContextProvider)
+function Dashbord() {
+  const {email} = useContext(ContextProvider) 
   const { alldata } = useContext(ContextProvider)
   const [users, setUsers] = useState([])
   const [logindata,setlogindata ] = useState([])
@@ -22,20 +17,15 @@ function Dashbord({ match }) {
 
   const [newData,setNewData] = useState(localStorage.setItem("user",JSON.stringify(logindata)))
   
-  
-
- 
-  
   const handleClose = () => {
     setShow(false);
    const a = localStorage.removeItem("data")  
     setNewData(a)
-    
    
   } 
   const handleShow = () => setShow(true);
 
-  var today =moment().format('LL');
+  var today = moment().format('LL');
   
   console.log(today.toString(),"today date")
   
@@ -46,7 +36,7 @@ function Dashbord({ match }) {
           const user = JSON.parse(getuser)
           setlogindata(user)
 
-          const userbirth = logindata.map((el,k)=>{
+          const userbirth = logindata.map((el)=>{
             return el.date === today
           })
           if(userbirth){
@@ -57,11 +47,41 @@ function Dashbord({ match }) {
           }
       }
   }
-
   useEffect(()=> {
     Birthday()
   },[])
+  
+  const handelDelete = (id) => {
+    let tmp = users
+    tmp = tmp.filter((el) => el.id !== id)
+    setUsers([...tmp])
+  }
 
+  const handelchange = (id) => {
+    navigate(`/edit/${id}`)
+  }
+
+  const logout = () => {
+    navigate("/")
+  }
+  const AddNew = () => {
+    navigate("/Addnew")
+  }
+  const navigate = useNavigate()
+
+
+  const data = localStorage.getItem(email)
+  const a = JSON.parse(data)
+
+  useEffect(() => {
+    setUsers(alldata)
+  }, [alldata])
+
+  const close = () => {
+    setState(true)
+  }
+  
+  // table data
   const columns = [
     {
       title: 'id',
@@ -88,39 +108,6 @@ function Dashbord({ match }) {
       }
     },
   ];
-   
-
-  const handelDelete = (id, idx) => {
-    let tmp = users
-    tmp = tmp.filter((el) => el.id !== id)
-    setUsers([...tmp])
-  }
-
-  const handelchange = (id) => {
-    navigate(`/edit/${id}`)
-  }
-
-
-
-  const logout = () => {
-    navigate("/")
-  }
-  const AddNew = () => {
-    navigate("/Addnew")
-  }
-  const navigate = useNavigate()
-
-
-  const data = localStorage.getItem(email)
-  const a = JSON.parse(data)
-
-  useEffect(() => {
-    setUsers(alldata)
-  }, [alldata])
-
-  const close = () => {
-    setState(true)
-  }
   return (
     <>
     {
@@ -138,15 +125,11 @@ function Dashbord({ match }) {
         <Button variant="secondary" onClick={handleClose}>
           Ok
         </Button>
-        {/* <Button variant="primary" onClick={handleClose}>
-          Save Changes
-        </Button> */}
+      
       </Modal.Footer>
     </Modal> : ""
      }
     </>
-          
-      
     }
     <div className='constructor'>
       <div className='btn btn-dark' onClick={AddNew}>Add New</div>
