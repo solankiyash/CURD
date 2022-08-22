@@ -7,9 +7,11 @@ import Modal from 'react-bootstrap/Modal';
 import moment from "moment"
 
 
-function Dashbord() {
+function Dashbord(props) {
   const {email} = useContext(ContextProvider) 
-  const { alldata } = useContext(ContextProvider)
+  const { alldata,insert,dataupdate } = useContext(ContextProvider)
+  const [data1,setData1] = useState(insert) 
+  const [data2,setData2] = useState(dataupdate)
   const [users, setUsers] = useState([])
   const [logindata,setlogindata ] = useState([])
   const [state,setState] = useState(false)
@@ -59,6 +61,9 @@ function Dashbord() {
 
   const handelchange = (id) => {
     navigate(`/edit/${id}`)
+    props.onSubmit(data1)
+    setData2()
+    
   }
 
   const logout = () => {
@@ -66,9 +71,10 @@ function Dashbord() {
   }
   const AddNew = () => {
     navigate("/Addnew")
+    props.onSubmit(data1)
+    // console.log(data1,"soolanki")     
   }
   const navigate = useNavigate()
-
 
   const data = localStorage.getItem(email)
   const a = JSON.parse(data)
@@ -115,7 +121,7 @@ function Dashbord() {
       <>
      {
       
-      logindata.date == today && state == false && newData !== ""  ?
+      logindata.date === today && state == false && newData !== ""  ?
       <Modal show={show}>
       <Modal.Header closeButton onClick={close}>
         <Modal.Title>{logindata.name}</Modal.Title>
