@@ -8,6 +8,14 @@ function Context(props) {
     const [email,setEmail] = useState("")
     const [date,setDate] = useState("")
     
+     const allstate = true
+    
+
+    const [state,setState] = useState(false)
+    // const [state1,setState1] = useState(true)
+
+    const [item,setItem] = useState(true)
+
     const [insert] = useState("ADD")
     const [dataupdate] = useState("NOT")
       useEffect(()=>{
@@ -15,7 +23,7 @@ function Context(props) {
       },[])  
   
   return (
-    <ContextProvider.Provider value={{email,setEmail,date,setDate,alldata,insert,dataupdate}}>
+    <ContextProvider.Provider value={{email,setEmail,date,setDate,alldata,insert,dataupdate,item,state,allstate}}>
         {props.children}
     </ContextProvider.Provider>
   )

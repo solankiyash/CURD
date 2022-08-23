@@ -3,7 +3,7 @@ import { Button,Form, Input} from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { ContextProvider } from './Context';
 import moment from "moment"
-
+import Login from './Login';
 
 
 function SingUp() {
@@ -12,8 +12,10 @@ function SingUp() {
     const[name,setName] = useState("")
     const[email,setEmail] = useState("")
     const[password,setPassword] = useState("")
-    const {date,setDate} = useContext(ContextProvider)
+    const {date,setDate,model,item,state} = useContext(ContextProvider)
 
+    const [data,setData] = useState(true)
+    
     const onFinish = (values) => {
       console.log('Success:', values);
     };
@@ -22,6 +24,7 @@ function SingUp() {
       console.log('Failed:', errorInfo);
     };
 
+    
     
     const handelClick = (e) => {
         e.preventDefault();
@@ -43,15 +46,24 @@ function SingUp() {
         alert("password filed is requred ")
        }else if(password.length < 6){
         alert("password length greater six ")
-       }else{
-          navigate("/login")
+       }else if(name === "" && email === "" && date === "" && password === ""){
+            setData(true)
+       }
+       else{
+         setData(false)
        }
        localStorage.setItem(obj.email,JSON.stringify(obj))
+        
+
     }
 
+  
    
   return (
     <div>
+     
+
+      {data === true ? 
       <div className='constructor'>
         <div className='row'>
           <div className='col-md-6'>
@@ -139,11 +151,12 @@ function SingUp() {
           span: 10,
         }}
       >
+        
         <Button type="primary" htmlType="submit" className='mb-3 col-lg-10'  onClick={handelClick}>
           Submit
         </Button>
       </Form.Item>
-      <span style={{"cursor":"pointer"}}  onClick={()=>navigate("/login")}>Already Have an account?</span>
+     
     </Form>
     </div>
     <div className='col-md-6'>
@@ -154,6 +167,7 @@ function SingUp() {
 
     </div>
     </div>
+    : <Login/>}
     </div>
   )
 }

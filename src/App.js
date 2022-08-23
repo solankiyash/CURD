@@ -7,22 +7,25 @@ import Context from './Component/Context';
 import {Routes,Route} from "react-router-dom"
 import Dashbord from './Component/Dashbord';
 import AddnewData from './Component/AddnewData';
+import Tabs from './Component/Tabs';
 
 
 
 function App() {
-  
+ 
  const getData = (data) => {
     console.log("Hello",data)
  }
  
+ 
+
   return (
     <div className="App">
     <Context>
       <Navbar/>
       <Routes>
-        <Route path='/' element={<SingUp/>}/>
-      <Route path='/login' element={<Login/>}/>
+        {/* <Route path='/' element={<SingUp/>}/> */}
+      {/* <Route path='/login' element={<Login/>}/> */}
           <Route path='/dashbord' element={<Dashbord onSubmit = {getData} />}/>
           <Route path='/Addnew' element={<AddnewData value={getData()} />}/>
           <Route path='/edit/:id' element={<AddnewData value = {getData}/>}/>

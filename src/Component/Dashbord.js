@@ -5,17 +5,27 @@ import {  Table } from 'antd';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import moment from "moment"
+import Tabs from './Tabs';
+import SingUp from './SingUp';
+import Navbar from './Navbar';
 
 
 function Dashbord(props) {
   const {email} = useContext(ContextProvider) 
-  const { alldata,insert,dataupdate } = useContext(ContextProvider)
+  const { alldata,insert,dataupdate,allstate } = useContext(ContextProvider)
   const [data1,setData1] = useState(insert) 
   const [data2,setData2] = useState(dataupdate)
   const [users, setUsers] = useState([])
   const [logindata,setlogindata ] = useState([])
   const [state,setState] = useState(false)
   const [show, setShow] = useState(false);
+
+
+  const [getdata,setgetdata] = useState(allstate)
+
+  const [item,setItem] = useState(true)
+  
+  
 
   const [newData,setNewData] = useState(localStorage.setItem("user",JSON.stringify(logindata)))
   
@@ -116,11 +126,12 @@ function Dashbord(props) {
   ];
   return (
     <>
+    
     {
       logindata.length === 0 ? "" : 
       <>
      {
-      
+       
       logindata.date === today && state == false && newData !== ""  ?
       <Modal show={show}>
       <Modal.Header closeButton onClick={close}>

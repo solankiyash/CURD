@@ -34,6 +34,7 @@ function AddnewData({value}) {
         id: id,
         userId: tmp[id-1].userId,
         title
+        
       }
       setData(tmp)
       alert("your data successfully updated")

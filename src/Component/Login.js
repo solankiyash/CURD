@@ -6,8 +6,11 @@ import { ContextProvider } from './Context';
 
 function Login() {
   const navigate = useNavigate()
-  const {email,setEmail} = useContext(ContextProvider)
+  const {email,setEmail,model,item,state} = useContext(ContextProvider)
   const [password,setPassword] = useState("")
+  
+  const [data,setData] = useState(state)
+ 
 
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -29,14 +32,20 @@ function Login() {
       let a = JSON.parse(data)
       if (a.password === password) { navigate("/dashbord") }
       else {
-        return alert("please check email")
+        return alert("please check email")  
+       
       }
        localStorage.setItem("data",JSON.stringify(a))
+       localStorage.setItem("alldata",JSON.stringify(a))
+       setData(true)
     }
+   
   }
   
   return (
     <div>
+       {data === false ? 
+        <>
       <div className='constructor'>
           <div className='row'>
                 <div className='col-md-6'>
@@ -96,7 +105,7 @@ function Login() {
                     Submit
                   </Button>
                 </Form.Item>
-                <span style={{"cursor":"pointer","padding-left":"40px"}}  onClick={()=>navigate("/")}>Create New Account?</span>
+                {/* <span style={{"cursor":"pointer","padding-left":"40px"}}  onClick={()=>navigate("/")}>Create New Account?</span> */}
               </Form>
               </div>
               </div>  
@@ -105,6 +114,8 @@ function Login() {
                   </div>
               </div>
           </div>
+          </>
+        :""}
     </div>
   )
 }
