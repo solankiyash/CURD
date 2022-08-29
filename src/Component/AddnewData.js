@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ContextProvider } from "./Context";
 import { Button, Form, Input } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const defaultValues = {
   name: "",
@@ -39,14 +40,14 @@ function AddnewData({ value }) {
     e.preventDefault();
     if (value === undefined) {
       if (name === "") {
-        alert("please fill name");
+        toast.error("Please Enter name")
       } else if (email === "") {
-        alert("please fill email");
+        toast.error("please fill proper email")
       } else if (body === "") {
-        alert("please fill body");
+       toast.error("please fill body")
       } else {
         if (data.push(item)) {
-          alert("your data successfully insert");
+          toast.success("your data successdully insert")
           navigate("/dashbord");
         } else {
           alert("Sorry your data not insert");
@@ -68,7 +69,7 @@ function AddnewData({ value }) {
         };
 
         setData(tmp);
-        alert("your data successfully updated");
+        toast.success("Your data Update")
         navigate("/dashbord");
       }
     }
@@ -106,6 +107,7 @@ function AddnewData({ value }) {
                   required: true,
                 },
               ]}
+              
             >
               <Input
                 type="text"
@@ -122,6 +124,7 @@ function AddnewData({ value }) {
                   required: true,
                   pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                   message: "Enter a valid email address!",
+                  whitespace:true
                 },
               ]}
             >
