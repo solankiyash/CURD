@@ -32,3 +32,6 @@ code {
 div.ant-form-item-control-input{
   min-height: 0px;
 }
+.singup .btn {
+padding:10px 80px 30px 80px
+}

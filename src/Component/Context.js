@@ -19,7 +19,7 @@ function Context(props) {
     const [insert] = useState("ADD")
     const [dataupdate] = useState("NOT")
       useEffect(()=>{
-        Axios.get(`https://jsonplaceholder.typicode.com/posts`).then((res)=>setAlldata(res.data)).catch((err)=>console.log(err))
+        Axios.get(`https://jsonplaceholder.typicode.com/comments`).then((res)=>setAlldata(res.data)).catch((err)=>console.log(err))
       },[])  
   
   return (

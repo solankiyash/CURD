@@ -4,21 +4,46 @@ import { useNavigate } from 'react-router-dom';
 import { ContextProvider } from './Context';
 import moment from "moment"
 import Login from './Login';
+import {toast, ToastContainer} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 function SingUp() {
   const navigate = useNavigate()
    
+    const [state,setState] = useState(Boolean)
     const[name,setName] = useState("")
     const[email,setEmail] = useState("")
     const[password,setPassword] = useState("")
-    const {date,setDate,model,item,state} = useContext(ContextProvider)
+    const {date,setDate} = useContext(ContextProvider)
 
     const [data,setData] = useState(true)
+
+
     
     const onFinish = (values) => {
       console.log('Success:', values);
+      const convertedDate = moment(date).format('LL')
+        var obj = {
+          "name":name,
+          "email":email,
+          "password":password,
+          "date":convertedDate.toString()
+        }
+        if(name === "" && email === "" && date === "" && password === ""){
+            setData(true)
+       }
+       else{
+         setData(false)
+         toast.success("SUCCESSFULLY DATA SUBMIT")
+
+       }
+       localStorage.setItem(obj.email,JSON.stringify(obj))
+      
+      
     };
+   
   
     const onFinishFailed = (errorInfo) => {
       console.log('Failed:', errorInfo);
@@ -28,33 +53,8 @@ function SingUp() {
     
     const handelClick = (e) => {
         e.preventDefault();
-        const convertedDate = moment(date).format('LL')
-        var obj = {
-          "name":name,
-          "email":email,
-          "password":password,
-          "date":convertedDate.toString()
-        }
         
-       if(name.length == 0){
-        alert("name filed is requred")
-       }else if(email === ""){
-          alert("email is requred")
-       }else if(date === ""){
-        alert("date filed is requred")
-       }else if(password === ""){
-        alert("password filed is requred ")
-       }else if(password.length < 6){
-        alert("password length greater six ")
-       }else if(name === "" && email === "" && date === "" && password === ""){
-            setData(true)
-       }
-       else{
-         setData(false)
-       }
-       localStorage.setItem(obj.email,JSON.stringify(obj))
-        
-
+       
     }
 
   
@@ -62,7 +62,20 @@ function SingUp() {
   return (
     <div>
      
-
+     
+     
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+          
       {data === true ? 
       <div className='constructor'>
         <div className='row'>
@@ -91,7 +104,10 @@ function SingUp() {
           {
             required: true,
             message: 'Please input your username!',
-          },
+          },{
+            min:3,
+            message:"Username must be grater than three "
+          }
         ]}
       >
         <Input  placeholder='Enter User Name' value={name} onChange={(e)=>setName(e.target.value)}/>
@@ -103,7 +119,7 @@ function SingUp() {
         rules={[
           {
             required: true,
-            pattern: new RegExp("@"),
+            pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
             message: 'Enter a valid email address!',
           },
         ]}
@@ -117,7 +133,12 @@ function SingUp() {
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: "password Required"
+          },
+          {
+            pattern:
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_])[A-Za-z\d@$!%*?&]{8,}$/,
+            message: "password must be lowercase,upercase,number,spacialcaracter",
           },
         ]}
       >
@@ -152,8 +173,8 @@ function SingUp() {
         }}
       >
         
-        <Button type="primary" htmlType="submit" className='mb-3 col-lg-10'  onClick={handelClick}>
-          Submit
+        <Button type="primary" htmlType="submit">
+          Register
         </Button>
       </Form.Item>
      
