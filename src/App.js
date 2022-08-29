@@ -12,6 +12,7 @@ import {ToastContainer} from "react-toastify"
 
 
 
+
 function App() {
   const getData = (data) => {
     console.log("Hello", data);
@@ -19,7 +20,6 @@ function App() {
 
   return (
     <div className="App">
-      
       <ToastContainer
         position="top-right"
         autoClose={5000}

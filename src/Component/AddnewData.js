@@ -57,7 +57,7 @@ function AddnewData({ value }) {
     // Edit  data
     if (value !== undefined) {
       if (name === "" || email === "" || body === "") {
-        alert("please fill data");
+        toast.error("please fill data")
       } else {
         let tmp = alldata;
         tmp[id - 1] = {
@@ -67,7 +67,7 @@ function AddnewData({ value }) {
           email,
           body,
         };
-
+       
         setData(tmp);
         toast.success("Your data Update")
         navigate("/dashbord");
@@ -151,6 +151,8 @@ function AddnewData({ value }) {
                 onChange={(e) => setBody(e.target.value)}
                 placeholder="Enter Title"
               />
+              <br/>
+              <br/>
               <Button className="primary" onClick={Addalldata}>
                 Add
               </Button>

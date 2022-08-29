@@ -35,3 +35,6 @@ div.ant-form-item-control-input{
 .singup .btn {
 padding:10px 80px 30px 80px
 }
+.addbutton .btn{
+  padding: 10px 60px 10px 60px;
+}

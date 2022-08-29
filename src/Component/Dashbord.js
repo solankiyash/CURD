@@ -177,16 +177,18 @@ function Dashbord(props) {
         </>
       )}
       <div className="constructor">
-        <div className="btn btn-dark" onClick={AddNew}>
+        <div className="addbutton">
+        <Button className="btn btn-secondary" onClick={AddNew}>
           Add New
-        </div>
-        <div className="btn btn-dark" onClick={logout}>
+        </Button>
+        <Button className="btn btn-secondary" onClick={logout}>
           Logout
+        </Button>
         </div>
 
         <h4>User Table</h4>
         <Table
-          style={{ width: "80%", margin: "20px 90px" }}
+          style={{ width: "80%", margin: "30px 100px" }}
           columns={columns}
           dataSource={users}
           size="middle"

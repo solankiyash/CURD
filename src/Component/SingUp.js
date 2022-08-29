@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
+
 function SingUp() {
   const navigate = useNavigate()
    
@@ -60,7 +61,7 @@ function SingUp() {
   return (
     <div>
      
-     
+    
      
       <ToastContainer
         position="top-right"
@@ -154,7 +155,7 @@ function SingUp() {
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: 'Please input your date!',
           },
         ]}
       >
