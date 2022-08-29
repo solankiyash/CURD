@@ -7,11 +7,11 @@ function Navbar() {
   const [state,setState] = useState(false)
 
   const handelSingUp = () => {
-     setState(true)
+     setState(false)
      console.log(state,"singUp")
   }
   const handelSingin = () => {
-     setState(false)
+     setState(true)
      console.log(state,"singIN")
 }
 
@@ -21,7 +21,7 @@ function Navbar() {
           <Button className='btn btn-light'onClick={handelSingUp} >SingUp</Button><span><Button className='btn btn-light' onClick={handelSingin} >SingIn</Button></span>
           </div>
           {
-            state === true ? <SingUp/>: state === false ? <Login/>:""
+            state === false ? <SingUp/>: state === true ? <Login/>:""
           }
     </div>
   )

@@ -21,7 +21,6 @@ function SingUp() {
     const [data,setData] = useState(true)
 
 
-    
     const onFinish = (values) => {
       console.log('Success:', values);
       const convertedDate = moment(date).format('LL')
@@ -54,7 +53,6 @@ function SingUp() {
     const handelClick = (e) => {
         e.preventDefault();
         
-       
     }
 
   
@@ -107,8 +105,10 @@ function SingUp() {
           },{
             min:3,
             message:"Username must be grater than three "
-          }
+          },
+          {whitespace:true}
         ]}
+        hasFeedback
       >
         <Input  placeholder='Enter User Name' value={name} onChange={(e)=>setName(e.target.value)}/>
       </Form.Item>
@@ -122,7 +122,9 @@ function SingUp() {
             pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
             message: 'Enter a valid email address!',
           },
+          {whitespace:true}
         ]}
+        hasFeedback
       >
         <Input placeholder='Enter email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
       </Form.Item>
@@ -135,12 +137,14 @@ function SingUp() {
             required: true,
             message: "password Required"
           },
+          {whitespace:true},
           {
             pattern:
               /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_])[A-Za-z\d@$!%*?&]{8,}$/,
             message: "password must be lowercase,upercase,number,spacialcaracter",
           },
         ]}
+        hasFeedback
       >
         <Input.Password placeholder='Enter Password' value={password} onChange={(e)=>setPassword(e.target.value)} />
         </Form.Item>

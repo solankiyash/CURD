@@ -18,16 +18,18 @@ function Login() {
     const { email, password } = values;
     const data = localStorage.getItem(email);
     
-   
+   const a = JSON.parse(data)
+   console.log(a.password,"swdwd")
 
     if (email == "" || email === undefined) {
       return toast.error("please check email");
     }
     if (password == "" || password === undefined) {
-      return toast.error("please check password");
+      // return toast.error("please check password");
     } else {
-      let a = JSON.parse(data);
-
+        if( a.password !== values.password){
+          toast.error("please check detail")
+        }
       if (a.password === password) {
         navigate("/dashbord");
         
@@ -43,6 +45,7 @@ function Login() {
 
       localStorage.setItem("data", JSON.stringify(a));
       setData(true);
+      toast.success("your data is submitted")
     }
   };
   const onFinishFailed = (errorInfo) => {
@@ -72,6 +75,7 @@ function Login() {
                 <div className="singin">
                   <h1>Sign In</h1>
                   <Form
+                  
                     form={form}
                     name="basic"
                     labelCol={{
@@ -90,7 +94,7 @@ function Login() {
                     <Form.Item
                       label="Email"
                       name="email"
-                      type="email "
+                      type="email"
                       rules={[
                         {
                           required: true,
@@ -132,7 +136,6 @@ function Login() {
                       <Button
                         type="primary"
                         htmlType="submit"
-                        // onClick={handelSubmit}
                       >
                         Login
                       </Button>
