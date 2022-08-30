@@ -32,6 +32,8 @@ function Login() {
         }
       if (a.password === password) {
         navigate("/dashbord");
+        // setData(false)
+        console.log(data,"sinin2")
         
       } else {
         form.setFields([
@@ -44,12 +46,12 @@ function Login() {
       }
 
       localStorage.setItem("data", JSON.stringify(a));
-      setData(true);
       toast.success("your data is submitted")
     }
   };
-  const onFinishFailed = (errorInfo) => {
+  const onFinishFailed = (errorInfo,values) => {
     console.log("Failed:", errorInfo);
+   
   };
 
   // const handelSubmit = () => {};
@@ -67,7 +69,7 @@ function Login() {
         pauseOnHover
       />
 
-      {data === false ? (
+     
         <>
           <div className="constructor">
             <div className="row">
@@ -150,9 +152,6 @@ function Login() {
             </div>
           </div>
         </>
-      ) : (
-        ""
-      )}
     </div>
   );
 }

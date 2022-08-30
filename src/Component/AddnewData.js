@@ -107,6 +107,7 @@ function AddnewData({ value }) {
                   required: true,
                 },
               ]}
+              hasFeedback
               
             >
               <Input
@@ -127,6 +128,7 @@ function AddnewData({ value }) {
                   whitespace:true
                 },
               ]}
+              hasFeedback
             >
               <Input
                 type="text"
@@ -144,6 +146,7 @@ function AddnewData({ value }) {
                   required: true,
                 },
               ]}
+              hasFeedback
             >
               <Input
                 type="text"
@@ -188,6 +191,7 @@ function AddnewData({ value }) {
                 message: "Enter a valid email address!",
               },
             ]}
+            hasFeedback
           >
             <Input
               type="text"
@@ -205,6 +209,7 @@ function AddnewData({ value }) {
                 required: true,
               },
             ]}
+            hasFeedback
           >
             <Input
               type="text"

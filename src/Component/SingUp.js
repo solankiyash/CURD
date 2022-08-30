@@ -33,15 +33,21 @@ function SingUp() {
         }
         if(name === "" && email === "" && date === "" && password === ""){
             setData(true)
+            console.log(data,"singUp3")
        }
        else{
+       
          setData(false)
+         console.log(data,"singup2")
          toast.success("SUCCESSFULLY DATA SUBMIT")
-
+         
        }
        localStorage.setItem(obj.email,JSON.stringify(obj))
+       
+       
+       
       
-      
+     
     };
    
   
@@ -158,6 +164,7 @@ function SingUp() {
             message: 'Please input your date!',
           },
         ]}
+        hasFeedback
       >
         <Input type="date" value={date} onChange={(e)=>setDate(e.target.value)} />
         </Form.Item>

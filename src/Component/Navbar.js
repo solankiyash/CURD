@@ -1,18 +1,21 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Button,Form, Input} from 'antd';
 import SingUp from "./SingUp"
 import Login from "./Login"
 function Navbar() {
 
-  const [state,setState] = useState(false)
+  const [state,setState] = useState(Boolean)
+  console.log(state,"state1")
+  
+ 
 
   const handelSingUp = () => {
-     setState(false)
-     console.log(state,"singUp")
+     setState(true)
+     console.log(state,"state2")
   }
   const handelSingin = () => {
-     setState(true)
-     console.log(state,"singIN")
+     setState(false)
+     console.log(state,"state3")
 }
 
   return (
@@ -21,7 +24,7 @@ function Navbar() {
           <Button className='btn btn-light'onClick={handelSingUp} >SingUp</Button><span><Button className='btn btn-light' onClick={handelSingin} >SingIn</Button></span>
           </div>
           {
-            state === false ? <SingUp/>: state === true ? <Login/>:""
+            state === true ? <SingUp/>: state === false  ? <Login/>:""
           }
     </div>
   )

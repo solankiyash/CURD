@@ -4,7 +4,6 @@ import Navbar from './Navbar'
 function Home() {
   return (
     <div>
-     
         <h1>Welcome Home</h1>
     </div>
   )
