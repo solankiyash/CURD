@@ -46,7 +46,9 @@ function Dashbord(props) {
   };
   const handleShow = () => setShow(true);
 
-  var today = moment().format("LL");
+  var today = moment().format("MMM Do");
+
+  console.log(today, "today");
 
   const Birthday = () => {
     const a = localStorage.getItem("data");
@@ -60,6 +62,7 @@ function Dashbord(props) {
         setlogindata(user);
 
         const userbirth = logindata.map((el) => {
+          console.log(el.date, el.date === today, "alldate");
           return el.date === today;
         });
         if (userbirth) {
@@ -178,12 +181,12 @@ function Dashbord(props) {
       )}
       <div className="constructor">
         <div className="addbutton">
-        <Button className="btn btn-secondary" onClick={AddNew}>
-          Add New
-        </Button>
-        <Button className="btn btn-secondary" onClick={logout}>
-          Logout
-        </Button>
+          <Button className="btn btn-secondary" onClick={AddNew}>
+            Add New
+          </Button>
+          <Button className="btn btn-secondary" onClick={logout}>
+            Logout
+          </Button>
         </div>
 
         <h4>User Table</h4>

@@ -8,16 +8,22 @@ import "react-toastify/dist/ReactToastify.css";
 function Login() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const { email, setEmail, state } = useContext(ContextProvider);
+  const {  state } = useContext(ContextProvider);
+  const [email,setEmail] = useState("")
   const [password, setPassword] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState(null);
 
-  const [data, setData] = useState(state);
+  const olddata = JSON.parse(localStorage.getItem(email.includes("@")&&email))
+  console.log(olddata,"olddata")
 
+  const [data, setData] = useState(state);
   const onFinish = (values) => {
     const { email, password } = values;
-    const data = localStorage.getItem(email);
+    const data = (localStorage.getItem(email));
+    console.log(data,"data")
     
+
+   
    const a = JSON.parse(data)
    console.log(a.password,"swdwd")
 
@@ -27,9 +33,7 @@ function Login() {
     if (password == "" || password === undefined) {
       // return toast.error("please check password");
     } else {
-        if( a.password !== values.password){
-          toast.error("please check detail")
-        }
+       
       if (a.password === password) {
         navigate("/dashbord");
         // setData(false)
@@ -101,13 +105,22 @@ function Login() {
                         {
                           required: true,
                           message: "Enter a valid email address!",
-                        },
+                          pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                        },{
+                          validator:()=>{
+                            if (olddata?.email !== email ) {
+                              return Promise.reject("plese check email");
+                            } else {
+                              return Promise.resolve();
+                            }
+                          }
+                        }
                       ]}
                     >
                       <Input
                         placeholder="Enter Email"
-                        // value={email}
-                        // onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </Form.Item>
 
@@ -120,12 +133,21 @@ function Login() {
                           pattern: "",
                           message: "Please input your password!",
                         },
+                        {
+                          validator:()=>{
+                            if (olddata?.password !== password ) {
+                              return Promise.reject("plese check password");
+                            } else {
+                              return Promise.resolve();
+                            }
+                          }
+                        }
                       ]}
                     >
                       <Input.Password
                         placeholder="Enter Password"
-                        // value={password}
-                        // onChange={(e) => setPassword(e.target.value)}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </Form.Item>
 

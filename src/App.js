@@ -5,13 +5,9 @@ import Context from "./Component/Context";
 import { Routes, Route } from "react-router-dom";
 import Dashbord from "./Component/Dashbord";
 import AddnewData from "./Component/AddnewData";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Component/Navbar";
-import {ToastContainer} from "react-toastify"
-
-
-
-
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const getData = (data) => {
@@ -32,10 +28,8 @@ function App() {
         pauseOnHover
       />
       <Context>
-       
-       
         <Routes>
-            <Route path='/' element={<Navbar/>}/>
+          <Route path="/" element={<Navbar />} />
           {/* <Route path='/' element={<SingUp/>}/> */}
           {/* <Route path='/' element={<SingUp/>}/> */}
           {/* <Route path='/' element={<Home/>}/> */}

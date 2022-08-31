@@ -9,6 +9,13 @@ const defaultValues = {
   email: "",
   body: "",
 };
+const onFinish = (values) => {
+  console.log("Success:", values);
+};
+
+const onFinishFailed = (errorInfo) => {
+  console.log("Failed:", errorInfo);
+};
 
 function AddnewData({ value }) {
   const [form] = Form.useForm();
@@ -36,28 +43,21 @@ function AddnewData({ value }) {
       body: body,
       id: alldata[alldata.length - 1].id + 1,
     };
-
+    console.log(item, "item");
     e.preventDefault();
+
     if (value === undefined) {
-      if (name === "") {
-        toast.error("Please Enter name")
-      } else if (email === "") {
-        toast.error("please fill proper email")
-      } else if (body === "") {
-       toast.error("please fill body")
+      if (data.push(item)) {
+        toast.success("your data successdully insert");
+        navigate("/dashbord");
       } else {
-        if (data.push(item)) {
-          toast.success("your data successdully insert")
-          navigate("/dashbord");
-        } else {
-          alert("Sorry your data not insert");
-        }
+        alert("Sorry your data not insert");
       }
     }
     // Edit  data
     if (value !== undefined) {
       if (name === "" || email === "" || body === "") {
-        toast.error("please fill data")
+        toast.error("please fill data");
       } else {
         let tmp = alldata;
         tmp[id - 1] = {
@@ -67,9 +67,9 @@ function AddnewData({ value }) {
           email,
           body,
         };
-       
+
         setData(tmp);
-        toast.success("Your data Update")
+        toast.success("Your data Update");
         navigate("/dashbord");
       }
     }
@@ -105,10 +105,11 @@ function AddnewData({ value }) {
               rules={[
                 {
                   required: true,
+                  message: "Name Required",
                 },
+                { whitespace: true },
               ]}
               hasFeedback
-              
             >
               <Input
                 type="text"
@@ -123,18 +124,20 @@ function AddnewData({ value }) {
               rules={[
                 {
                   required: true,
-                  pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                   message: "Enter a valid email address!",
-                  whitespace:true
+                  pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                },
+                {
+                  whitespace: true,
                 },
               ]}
               hasFeedback
             >
               <Input
-                type="text"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter Title"
+                placeholder="Enter email"
               />
             </Form.Item>
 
@@ -144,7 +147,9 @@ function AddnewData({ value }) {
               rules={[
                 {
                   required: true,
+                  message: "Enter body",
                 },
+                { whitespace: true },
               ]}
               hasFeedback
             >
@@ -152,18 +157,36 @@ function AddnewData({ value }) {
                 type="text"
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
-                placeholder="Enter Title"
+                placeholder="Enter Body"
               />
-              <br/>
-              <br/>
-              <Button className="primary" onClick={Addalldata}>
+              <br />
+              <br />
+              <Button
+                disabled={
+                  name !== "" && email !== "" && body !== "" ? false : true
+                }
+                className="primary"
+                onClick={Addalldata}
+              >
                 Add
               </Button>
             </Form.Item>
           </Form>
         </>
       ) : value !== undefined ? (
-        <Form form={form}>
+        <Form
+          form={form}
+          // name="basic"
+          // labelCol={{
+          //   span: 9,
+          // }}
+          // wrapperCol={{
+          //   span: 10,
+          // }}
+          // onFinish={onFinish}
+          // onFinishFailed={onFinishFailed}
+          // autoComplete="off"
+        >
           <Form.Item
             label="name"
             name="name"
@@ -172,6 +195,7 @@ function AddnewData({ value }) {
                 required: true,
               },
             ]}
+            hasFeedback
           >
             <Input
               type="text"
