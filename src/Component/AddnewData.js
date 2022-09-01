@@ -142,14 +142,17 @@ function AddnewData({ value }) {
             </Form.Item>
 
             <Form.Item
-              label="body"
+              label="Body"
               name="body"
               rules={[
                 {
                   required: true,
-                  message: "Enter body",
+                  message: "Enter a valid email address!",
+                  pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                 },
-                { whitespace: true },
+                {
+                  whitespace: true,
+                },
               ]}
               hasFeedback
             >

@@ -16,7 +16,7 @@ function SingUp() {
   const [password, setPassword] = useState("");
   // const { date, setDate } = useContext(ContextProvider);
   const [date, setDate] = useState("");
-  const [data, setData] = useState(true);
+  const { open, setOpen } = useContext(ContextProvider);
 
   console.log(date, "date");
 
@@ -35,11 +35,10 @@ function SingUp() {
     };
     console.log(date, "date");
     if (name === "" && email === "" && date === "" && password === "") {
-      setData(true);
-      console.log(data, "singUp3");
+      setOpen(true);
     } else {
-      setData(false);
-      console.log(data, "singup2");
+      setOpen(false);
+
       toast.success("SUCCESSFULLY DATA SUBMIT");
     }
     localStorage.setItem(obj.email, JSON.stringify(obj));
@@ -66,7 +65,7 @@ function SingUp() {
         pauseOnHover
       />
 
-      {data === true ? (
+      {open === true ? (
         <div className="constructor">
           <div className="row">
             <div className="col-md-6">

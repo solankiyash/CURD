@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Form, Input } from "antd";
 import SingUp from "./SingUp";
 import Login from "./Login";
+import { ContextProvider } from "./Context";
 function Navbar() {
-  const [state, setState] = useState(false);
-  console.log(state, "state1");
+  const { open, setOpen } = useContext(ContextProvider);
+  console.log(open, "open");
+  // console.log(state, "state1");
 
   const handelSingUp = () => {
-    setState(true);
-    console.log(state, "state2");
+    setOpen(true);
   };
   const handelSingin = () => {
-    setState(false);
-    console.log(state, "state3");
+    setOpen(false);
   };
 
   return (
@@ -27,7 +27,7 @@ function Navbar() {
           </Button>
         </span>
       </div>
-      {state === true ? <SingUp /> : state === false ? <Login /> : ""}
+      {open === true ? <SingUp /> : open === false ? <Login /> : ""}
     </div>
   );
 }
