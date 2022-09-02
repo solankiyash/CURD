@@ -8,54 +8,43 @@ import "react-toastify/dist/ReactToastify.css";
 function Login() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const {  state } = useContext(ContextProvider);
-  const [email,setEmail] = useState("")
+  const { state } = useContext(ContextProvider);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState(null);
 
-  const olddata = JSON.parse(localStorage.getItem(email.includes("@")&&email))
-  console.log(olddata,"olddata")
+  const olddata = JSON.parse(
+    localStorage.getItem(email.includes("@") && email)
+  );
+  console.log(olddata, "olddata");
 
-  const [data, setData] = useState(state);
   const onFinish = (values) => {
     const { email, password } = values;
-    const data = (localStorage.getItem(email));
-    console.log(data,"data")
-    
+    const data = localStorage.getItem(email);
+    console.log(data, "data");
 
-   
-   const a = JSON.parse(data)
-   console.log(a.password,"swdwd")
+    const a = JSON.parse(data);
+    console.log(a.password, "swdwd");
 
-    if (email == "" || email === undefined) {
-      return toast.error("please check email");
-    }
-    if (password == "" || password === undefined) {
-      // return toast.error("please check password");
+    if (a.password === password) {
+      navigate("/dashbord");
+      // setData(false)
+      console.log(data, "sinin2");
     } else {
-       
-      if (a.password === password) {
-        navigate("/dashbord");
-        // setData(false)
-        console.log(data,"sinin2")
-        
-      } else {
-        form.setFields([
-          {
-            name: password,
-            errors: ["forbid ha"],
-          },
-        ]);
-        return;
-      }
-
-      localStorage.setItem("data", JSON.stringify(a));
-      toast.success("your data is submitted")
+      form.setFields([
+        {
+          name: password,
+          errors: ["forbid ha"],
+        },
+      ]);
+      return;
     }
+
+    localStorage.setItem("data", JSON.stringify(a));
+    toast.success("your data is submitted");
   };
-  const onFinishFailed = (errorInfo,values) => {
+  const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
-   
   };
 
   // const handelSubmit = () => {};
@@ -73,107 +62,103 @@ function Login() {
         pauseOnHover
       />
 
-     
-        <>
-          <div className="constructor">
-            <div className="row">
-              <div className="col-md-6">
-                <div className="singin">
-                  <h1>Sign In</h1>
-                  <Form
-                  
-                    form={form}
-                    name="basic"
-                    labelCol={{
-                      span: 9,
-                    }}
+      <>
+        <div className="constructor">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="singin">
+                <h1>Sign In</h1>
+                <Form
+                  form={form}
+                  name="basic"
+                  labelCol={{
+                    span: 9,
+                  }}
+                  wrapperCol={{
+                    span: 10,
+                  }}
+                  initialValues={{
+                    remember: true,
+                  }}
+                  onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}
+                  autoComplete="off"
+                >
+                  <Form.Item
+                    label="Email"
+                    name="email"
+                    type="email"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Enter a valid email address!",
+                        pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                      },
+                      {
+                        validator: () => {
+                          if (olddata?.email !== email) {
+                            return Promise.reject("plese check email");
+                          } else {
+                            return Promise.resolve();
+                          }
+                        },
+                      },
+                    ]}
+                  >
+                    <Input
+                      placeholder="Enter Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                        pattern: "",
+                        message: "Please input your password!",
+                      },
+                      {
+                        validator: () => {
+                          if (olddata?.password !== password) {
+                            return Promise.reject("plese check password");
+                          } else {
+                            return Promise.resolve();
+                          }
+                        },
+                      },
+                    ]}
+                  >
+                    <Input.Password
+                      placeholder="Enter Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </Form.Item>
+
+                  <Form.Item
                     wrapperCol={{
+                      offset: 8,
                       span: 10,
                     }}
-                    initialValues={{
-                      remember: true,
-                    }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    autoComplete="off"
                   >
-                    <Form.Item
-                      label="Email"
-                      name="email"
-                      type="email"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Enter a valid email address!",
-                          pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                        },{
-                          validator:()=>{
-                            if (olddata?.email !== email ) {
-                              return Promise.reject("plese check email");
-                            } else {
-                              return Promise.resolve();
-                            }
-                          }
-                        }
-                      ]}
-                    >
-                      <Input
-                        placeholder="Enter Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </Form.Item>
-
-                    <Form.Item
-                      label="Password"
-                      name="password"
-                      rules={[
-                        {
-                          required: true,
-                          pattern: "",
-                          message: "Please input your password!",
-                        },
-                        {
-                          validator:()=>{
-                            if (olddata?.password !== password ) {
-                              return Promise.reject("plese check password");
-                            } else {
-                              return Promise.resolve();
-                            }
-                          }
-                        }
-                      ]}
-                    >
-                      <Input.Password
-                        placeholder="Enter Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </Form.Item>
-
-                    <Form.Item
-                      wrapperCol={{
-                        offset: 8,
-                        span: 10,
-                      }}
-                    >
-                      <Button
-                        type="primary"
-                        htmlType="submit"
-                      >
-                        Login
-                      </Button>
-                    </Form.Item>
-                    {/* <span style={{"cursor":"pointer","padding-left":"40px"}}  onClick={()=>navigate("/")}>Create New Account?</span> */}
-                  </Form>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <img src="./image/Singup.webp" />
+                    <Button type="primary" htmlType="submit">
+                      Login
+                    </Button>
+                  </Form.Item>
+                  {/* <span style={{"cursor":"pointer","padding-left":"40px"}}  onClick={()=>navigate("/")}>Create New Account?</span> */}
+                </Form>
               </div>
             </div>
+            <div className="col-md-6">
+              <img src="./image/Singup.webp" />
+            </div>
           </div>
-        </>
+        </div>
+      </>
     </div>
   );
 }

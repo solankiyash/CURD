@@ -9,7 +9,7 @@ import { message, Popconfirm } from "antd";
 
 function Dashbord(props) {
   const { email } = useContext(ContextProvider);
-  const { alldata, insert, dataupdate, allstate } = useContext(ContextProvider);
+  const { alldata, insert, dataupdate } = useContext(ContextProvider);
   const [data1, setData1] = useState(insert);
   const [data2, setData2] = useState(dataupdate);
   const [users, setUsers] = useState([]);
@@ -34,8 +34,6 @@ function Dashbord(props) {
     localStorage.setItem("user", JSON.stringify(logindata))
   );
 
-  const [add, setAdd] = useState(Boolean);
-
   const handleClose = () => {
     const a = localStorage.getItem("data");
     const user = JSON.parse(a);
@@ -56,11 +54,11 @@ function Dashbord(props) {
     setLoginUser(user.name);
 
     const getuser = localStorage.getItem("data");
+
     if (localStorage.getItem(user.name) === null) {
       if (getuser && getuser.length) {
         const user = JSON.parse(getuser);
         setlogindata(user);
-
         const userbirth = logindata.map((el) => {
           console.log(el.date, el.date === today, "alldate");
           return el.date === today;
@@ -141,7 +139,7 @@ function Dashbord(props) {
               Edit
             </Button>
             <Popconfirm
-              title="Are you sure to delete this task?"
+              title="Are you sure to delete this task ?"
               onConfirm={() => confirm(recored.id)}
               onCancel={cancel}
               okText="Yes"

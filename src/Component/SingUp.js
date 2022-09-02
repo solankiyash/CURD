@@ -10,7 +10,7 @@ import { DatePicker, Space } from "antd";
 
 function SingUp() {
   const navigate = useNavigate();
-  const [state, setState] = useState(Boolean);
+  // const [state, setState] = useState(Boolean);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
