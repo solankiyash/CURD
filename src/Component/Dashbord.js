@@ -93,7 +93,6 @@ function Dashbord(props) {
   const AddNew = () => {
     navigate("/Addnew");
     props.onSubmit(data1);
-    // console.log(data1,"soolanki")
   };
   const navigate = useNavigate();
 
@@ -135,9 +134,11 @@ function Dashbord(props) {
       render: (recored) => {
         return (
           <>
-            <Button id={recored.id} onClick={() => handelchange(recored.id)}>
-              Edit
-            </Button>
+            <div className="edit">
+              <Button id={recored.id} onClick={() => handelchange(recored.id)}>
+                Edit
+              </Button>
+            </div>
             <Popconfirm
               title="Are you sure to delete this task ?"
               onConfirm={() => confirm(recored.id)}

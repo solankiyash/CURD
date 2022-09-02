@@ -3,20 +3,13 @@ import { ContextProvider } from "./Context";
 import { Button, Form, Input, message } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import DisabledContext from "antd/lib/config-provider/DisabledContext";
 
 const defaultValues = {
   name: "",
   email: "",
   body: "",
 };
-
-// const onFinish = (values) => {
-//   console.log("Success:", values);
-// };
-
-// const onFinishFailed = (errorInfo) => {
-//   console.log("Failed:", errorInfo);
-// };
 
 function AddnewData({ value }) {
   const [form] = Form.useForm();
@@ -118,11 +111,6 @@ function AddnewData({ value }) {
                 message: "Enter a valid email address!",
               },
               {
-                pattern: new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/),
-                message: "User name contain only characters and numbers",
-              },
-
-              {
                 whitespace: true,
               },
             ]}
@@ -156,6 +144,7 @@ function AddnewData({ value }) {
             />
             <br />
             <br />
+
             <Button
               type="submit"
               disabled={

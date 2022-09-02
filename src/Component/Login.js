@@ -1,35 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
-import { ContextProvider } from "./Context";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const { state } = useContext(ContextProvider);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordMatchError, setPasswordMatchError] = useState(null);
 
   const olddata = JSON.parse(
     localStorage.getItem(email.includes("@") && email)
   );
-  console.log(olddata, "olddata");
 
   const onFinish = (values) => {
     const { email, password } = values;
     const data = localStorage.getItem(email);
-    console.log(data, "data");
 
     const a = JSON.parse(data);
-    console.log(a.password, "swdwd");
-
     if (a.password === password) {
       navigate("/dashbord");
-      // setData(false)
-      console.log(data, "sinin2");
     } else {
       form.setFields([
         {
@@ -39,7 +30,6 @@ function Login() {
       ]);
       return;
     }
-
     localStorage.setItem("data", JSON.stringify(a));
     toast.success("your data is submitted");
   };
@@ -47,7 +37,6 @@ function Login() {
     console.log("Failed:", errorInfo);
   };
 
-  // const handelSubmit = () => {};
   return (
     <div>
       <ToastContainer
@@ -149,7 +138,6 @@ function Login() {
                       Login
                     </Button>
                   </Form.Item>
-                  {/* <span style={{"cursor":"pointer","padding-left":"40px"}}  onClick={()=>navigate("/")}>Create New Account?</span> */}
                 </Form>
               </div>
             </div>

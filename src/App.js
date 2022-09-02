@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import "./App.css";
-// import Navbar from "./Component/Navbar";
 import Context from "./Component/Context";
 import { Routes, Route } from "react-router-dom";
 import Dashbord from "./Component/Dashbord";
@@ -30,9 +29,6 @@ function App() {
       <Context>
         <Routes>
           <Route path="/" element={<Navbar />} />
-          {/* <Route path='/' element={<SingUp/>}/> */}
-          {/* <Route path='/' element={<SingUp/>}/> */}
-          {/* <Route path='/' element={<Home/>}/> */}
           <Route path="/dashbord" element={<Dashbord onSubmit={getData} />} />
           <Route path="/Addnew" element={<AddnewData value={getData()} />} />
           <Route path="/edit/:id" element={<AddnewData value={getData} />} />

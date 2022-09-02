@@ -9,16 +9,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { DatePicker, Space } from "antd";
 
 function SingUp() {
-  const navigate = useNavigate();
-  // const [state, setState] = useState(Boolean);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const { date, setDate } = useContext(ContextProvider);
   const [date, setDate] = useState("");
   const { open, setOpen } = useContext(ContextProvider);
-
-  console.log(date, "date");
 
   const olddata = JSON.parse(
     localStorage.getItem(email.includes("@") && email)
@@ -26,7 +21,7 @@ function SingUp() {
   const onFinish = (values) => {
     console.log("Success:", values);
     const convertedDate = values.date.format("MMM Do");
-    console.log(convertedDate, "dates");
+
     var obj = {
       name: name,
       email: email,
