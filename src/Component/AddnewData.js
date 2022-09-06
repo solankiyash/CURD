@@ -10,6 +10,13 @@ const defaultValues = {
   email: "",
   body: "",
 };
+// const onFinish = (values) => {
+//   console.log("Success:", values);
+// };
+
+// const onFinishFailed = (errorInfo) => {
+//   console.log("Failed:", errorInfo);
+// };
 
 function AddnewData({ value }) {
   const [form] = Form.useForm();
@@ -17,19 +24,7 @@ function AddnewData({ value }) {
   const [edit, setEdit] = useState(false);
   let [data, setData] = useState(alldata);
 
-  const handelBack = () => {
-    navigate("/dashbord");
-  };
-
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [body, setBody] = useState("");
-
-  const Addalldata = (e) => {
-    // add data
-    e.preventDefault();
+  const onFinish = (values) => {
     if (!edit) {
       let item = {
         name: name,
@@ -58,7 +53,22 @@ function AddnewData({ value }) {
       toast.success("Your data Update");
       navigate("/dashbord");
     }
+    console.log("Success:", values);
   };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const handelBack = () => {
+    navigate("/dashbord");
+  };
+
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [body, setBody] = useState("");
 
   useEffect(() => {
     if (value && alldata && alldata.length > 0) {
@@ -82,16 +92,35 @@ function AddnewData({ value }) {
       <br />
       <br />
       <>
-        <Form form={form} initialValues={defaultValues}>
+        <Form
+          style={{
+            position: "relative",
+            right: "145px",
+          }}
+          form={form}
+          initialValues={defaultValues}
+          name="basic"
+          labelCol={{
+            span: 8,
+          }}
+          wrapperCol={{
+            span: 16,
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
           <Form.Item
-            label="Name"
+            label="NAME"
             name="name"
             rules={[
               {
                 required: true,
-                message: "Name Required",
+                message: "Please input your username!",
               },
-              { whitespace: true },
+              {
+                whitespace: true,
+              },
             ]}
             hasFeedback
           >
@@ -102,13 +131,15 @@ function AddnewData({ value }) {
               placeholder="Enter Title"
             />
           </Form.Item>
+
           <Form.Item
-            label="email"
+            label="Email"
             name="email"
             rules={[
               {
                 required: true,
-                message: "Enter a valid email address!",
+                message: "Please input your email!",
+                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
               },
               {
                 whitespace: true,
@@ -125,14 +156,16 @@ function AddnewData({ value }) {
           </Form.Item>
 
           <Form.Item
-            label="body"
+            label="Body"
             name="body"
             rules={[
               {
                 required: true,
-                message: "Enter body",
+                message: "Please input your body!",
               },
-              { whitespace: true },
+              {
+                whitespace: true,
+              },
             ]}
             hasFeedback
           >
@@ -142,18 +175,19 @@ function AddnewData({ value }) {
               onChange={(e) => setBody(e.target.value)}
               placeholder="Enter Body"
             />
-            <br />
-            <br />
-
+          </Form.Item>
+          <Form.Item
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
             <Button
-              type="submit"
-              disabled={
-                name !== "" && email !== "" && body !== "" ? false : true
-              }
-              className="primary"
-              onClick={Addalldata}
+              type="primary"
+              htmlType="submit"
+              style={{ position: "relative", right: "30px" }}
             >
-              {edit ? "update" : "add"}
+              Submit
             </Button>
           </Form.Item>
         </Form>

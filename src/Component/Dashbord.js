@@ -93,7 +93,6 @@ function Dashbord(props) {
   const AddNew = () => {
     navigate("/Addnew");
     props.onSubmit(data1);
-    // console.log(data1,"soolanki")
   };
   const navigate = useNavigate();
 
